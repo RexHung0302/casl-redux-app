@@ -3,7 +3,7 @@ import DashboardLayout from "@/pages/dashboard/layout";
 
 const AdminManager = () => {
   return (
-    <>管理者列表</>
+    <>Admin Manager Page</>
   )
 };
 

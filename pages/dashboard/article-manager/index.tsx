@@ -169,7 +169,6 @@ const ArticleManager = ({
       />
       {/* Edit Modal */}
       <Modal
-        forceRender
         title="Edit Article"
         centered
         open={editModalVisible}
