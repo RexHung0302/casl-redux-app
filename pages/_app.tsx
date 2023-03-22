@@ -3,6 +3,7 @@ import type { AppProps } from "next/app";
 import RootLayout from "./RootLayout";
 import { NextPage } from "next";
 import { ReactElement, ReactNode } from "react";
+import { wrapper } from "@/store";
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode
@@ -12,7 +13,7 @@ type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout
 }
 
-export default function App({ Component, pageProps }: AppPropsWithLayout) {
+const App = ({ Component, pageProps }: AppPropsWithLayout) => {
   const getLayout = Component.getLayout ?? ((page) => page);
 
   return (
@@ -23,3 +24,5 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
     </RootLayout>
   );
 }
+
+export default wrapper.withRedux(App);

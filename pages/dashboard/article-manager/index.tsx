@@ -3,6 +3,8 @@ import DashboardLayout from "@/pages/dashboard/layout";
 import Search from "@/pages/dashboard/article-manager/Search";
 import { Button, FormRule, Row, Col, Table, message, Popconfirm, Modal, Form, Input } from "antd";
 import { ColumnsType } from "antd/es/table";
+import { useSelector } from "react-redux";
+import { selectAuthState } from "@/store/reducers/authSlice";
 
 interface IArticleManagerProps {
   propsPosts: IPost[];
@@ -11,12 +13,15 @@ interface IArticleManagerProps {
 const ArticleManager = ({
   propsPosts
 }: IArticleManagerProps) => {
+  const authState = useSelector(selectAuthState);
   const [editForm] = Form.useForm();
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [posts] = useState<IPost[]>(propsPosts);
   const [editModalVisible, setEditModalVisible] = useState(false);
+
+  console.log('authState', authState);
 
   // Edit Article
   const openEditModalHandler = (record: IPost) => {
@@ -135,8 +140,6 @@ const ArticleManager = ({
         message.success('successfully Edited!');
         setEditModalVisible(false);
       });
-
-    
   }
 
   return (
