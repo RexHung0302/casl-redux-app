@@ -1,3 +1,52 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": ["next/babel", "next/core-web-vitals", "prettier"],
+  "rules": {
+    // 0 = off, 1 = warn, 2 = error
+    "prefer-const": "warn",
+    // suppress errors for missing 'import React' in files
+    "react/react-in-jsx-scope": "off",
+    // file extension rule
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [".ts", ".tsx"]
+      }
+    ],
+    "quotes": [2, "double"],
+    "prefer-arrow-callback": [2, { "allowNamedFunctions": true }],
+    "indent": [2, 2],
+    "operator-linebreak": [2, "after", { "overrides": { "?": "before", ":": "before" } }],
+    "semi": "error",
+    "max-len": [
+      2,
+      {
+        "code": 150, // 可搭配 prettier 使用
+        "tabWidth": 2,
+        "ignoreComments": true,
+        "ignoreTemplateLiterals": true
+      }
+    ],
+    "array-element-newline": [2, { "multiline": true }],
+    "array-bracket-newline": "off",
+    // eslint-disable-next-line no-dupe-keys
+    "arrow-body-style": "off",
+    "react/function-component-definition": "off",
+    "@typescript-eslint/no-non-null-assertion": "off",
+    "@typescript-eslint/no-unused-vars": "off",
+    // 解決 import/extensions 問題
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "js": "never",
+        "jsx": "never",
+        "ts": "never",
+        "tsx": "never"
+      }
+    ],
+    "react/require-default-props": "off",
+    "react/jsx-no-useless-fragment": "off",
+    "no-shadow": "off",
+    "jsx-a11y/label-has-associated-control": "off"
+  }
 }
