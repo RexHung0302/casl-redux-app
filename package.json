@@ -12,6 +12,8 @@
   },
   "dependencies": {
     "@ant-design/icons": "^5.0.1",
+    "@casl/ability": "^6.3.3",
+    "@casl/react": "^3.1.0",
     "@reduxjs/toolkit": "^1.9.3",
     "@types/node": "18.15.3",
     "@types/react": "18.0.28",

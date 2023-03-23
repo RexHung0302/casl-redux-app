@@ -6,14 +6,16 @@ const reducers = combineReducers({
   [authSlice.name]: authSlice.reducer,
 });
 
-const store = () =>
+const makeStore = () =>
   configureStore({
-    reducer: reducers,
+    reducer: {
+      [authSlice.name]: authSlice.reducer,
+    },
     devTools: process.env.NODE_ENV !== 'production',
   });
 
-export type AppStore = ReturnType<typeof store>;
-export type AppState = ReturnType<AppStore["getState"]>;
+export type AppStore = ReturnType<typeof makeStore>;
+export type AppState = ReturnType<typeof reducers>;
 export type AppThunk<ReturnType = void> = ThunkAction<
   ReturnType,
   AppState,
@@ -21,4 +23,4 @@ export type AppThunk<ReturnType = void> = ThunkAction<
   Action
 >;
 
-export const wrapper = createWrapper<AppStore>(store);
+export const wrapper = createWrapper<AppStore>(makeStore, { debug: process.env.NODE_ENV !== 'production' });

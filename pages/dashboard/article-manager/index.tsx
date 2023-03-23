@@ -4,7 +4,7 @@ import Search from "@/pages/dashboard/article-manager/Search";
 import { Button, FormRule, Row, Col, Table, message, Popconfirm, Modal, Form, Input } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { useSelector } from "react-redux";
-import { selectAuthState } from "@/store/reducers/authSlice";
+import { selectAbility, selectAuthState } from "@/store/reducers/authSlice";
 
 interface IArticleManagerProps {
   propsPosts: IPost[];
@@ -14,6 +14,7 @@ const ArticleManager = ({
   propsPosts
 }: IArticleManagerProps) => {
   const authState = useSelector(selectAuthState);
+  const ability = useSelector(selectAbility);
   const [editForm] = Form.useForm();
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -21,7 +22,7 @@ const ArticleManager = ({
   const [posts] = useState<IPost[]>(propsPosts);
   const [editModalVisible, setEditModalVisible] = useState(false);
 
-  console.log('authState', authState);
+  console.log('authState', authState, 'ability', ability, ability.can('R', 'article'));
 
   // Edit Article
   const openEditModalHandler = (record: IPost) => {

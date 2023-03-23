@@ -3,6 +3,8 @@ import router from "next/router";
 import { Row, Col, Dropdown, Avatar, MenuProps } from "antd";
 import { MenuFoldOutlined, MenuUnfoldOutlined, UserOutlined } from "@ant-design/icons";
 import { Header } from "antd/lib/layout/layout";
+import { useDispatch } from "react-redux";
+import { setClearAbility } from "@/store/reducers/authSlice";
 
 interface IHeaderComponentProps {
   collapsed: boolean;
@@ -15,13 +17,14 @@ const HeaderComponent = ({
   setCollapsed,
   colorBgContainer
 }: IHeaderComponentProps) => {
-
+  const dispatch = useDispatch();
   const dropdownItems = useCallback((): MenuProps['items'] => [
     {
       label: 'Logout',
       key: '0',
       onClick: () => {
         localStorage.removeItem('jwtToken');
+        dispatch(setClearAbility());
         router.push('/login');
       }
     },
