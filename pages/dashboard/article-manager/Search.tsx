@@ -16,7 +16,7 @@ const Search = ({
 
   return (
     <div className="border border-black p-2">
-      <Form form={form} layout="vertical" autoComplete="off" onFinish={debounce(onSearchHandler, 1000)}>
+      <Form form={form} layout="vertical" autoComplete="off" onFinish={debounce(() => onSearchHandler, 1000)}>
         <Row gutter={16}>
           <Col span={12}>
             <Form.Item name="Title" label="Title" rules={[{ required: true }]}>
