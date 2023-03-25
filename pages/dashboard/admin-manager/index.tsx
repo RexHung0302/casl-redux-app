@@ -13,20 +13,44 @@ const AdminManager = () => {
       <p>Admin Manager Page, your ability：</p>
       <Row gutter={16}>
         <Col span={24}>
-          <span className="text-lg">Create：{ability.can('C', 'admin-manager') ? <CheckCircleOutlined className="text-green-500" /> : <CloseCircleOutlined className="text-red-500" />}</span>
+          <span className="text-lg">
+            Create：{
+              ability.can("C", "admin-manager")
+                ? <CheckCircleOutlined className="text-green-500" />
+                : <CloseCircleOutlined className="text-red-500" />
+            }
+          </span>
         </Col>
         <Col span={24}>
-          <span className="text-lg">Read：{ability.can('R', 'admin-manager') ? <CheckCircleOutlined className="text-green-500" /> : <CloseCircleOutlined className="text-red-500" />}</span>
+          <span className="text-lg">
+            Read：{
+              ability.can("R", "admin-manager")
+                ? <CheckCircleOutlined className="text-green-500" />
+                : <CloseCircleOutlined className="text-red-500" />
+            }
+          </span>
         </Col>
         <Col span={24}>
-          <span className="text-lg">Update：{ability.can('U', 'admin-manager') ? <CheckCircleOutlined className="text-green-500" /> : <CloseCircleOutlined className="text-red-500" />}</span>
+          <span className="text-lg">
+            Read：{
+              ability.can("U", "admin-manager")
+                ? <CheckCircleOutlined className="text-green-500" />
+                : <CloseCircleOutlined className="text-red-500" />
+            }
+          </span>
         </Col>
         <Col span={24}>
-          <span className="text-lg">Delete：{ability.can('D', 'admin-manager') ? <CheckCircleOutlined className="text-green-500" /> : <CloseCircleOutlined className="text-red-500" />}</span>
+          <span className="text-lg">
+            Read：{
+              ability.can("D", "admin-manager")
+                ? <CheckCircleOutlined className="text-green-500" />
+                : <CloseCircleOutlined className="text-red-500" />
+            }
+          </span>
         </Col>
       </Row>
     </>
-  )
+  );
 };
 
 AdminManager.getLayout = (page: ReactElement) => {
@@ -34,7 +58,7 @@ AdminManager.getLayout = (page: ReactElement) => {
     <DashboardLayout>
       {page}
     </DashboardLayout>
-  )
-} 
+  );
+}; 
 
 export default AdminManager;

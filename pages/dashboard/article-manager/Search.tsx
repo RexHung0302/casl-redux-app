@@ -1,5 +1,5 @@
 import { Form, Row, Col, Input, Space, Button, FormRule } from "antd";
-import { debounce } from 'lodash';
+import { debounce } from "lodash";
 
 interface ISearchProps {
   loading: boolean;
@@ -39,7 +39,7 @@ const Search = ({
         </Row>
       </Form>
     </div>
-  )
+  );
 };
 
 export default Search;

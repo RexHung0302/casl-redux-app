@@ -1,5 +1,5 @@
 {
-  "extends": ["next/babel", "next/core-web-vitals", "prettier"],
+  "extends": ["next/core-web-vitals", "prettier"],
   "rules": {
     // 0 = off, 1 = warn, 2 = error
     "prefer-const": "warn",

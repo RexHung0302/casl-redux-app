@@ -15,7 +15,7 @@ Dashboard.getLayout = (page: ReactElement) => {
     <DashboardLayout>
       {page}
     </DashboardLayout>
-  )
-} 
+  );
+}; 
 
 export default Dashboard;

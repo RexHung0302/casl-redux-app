@@ -24,16 +24,16 @@ const ArticleManager = ({
   // Edit Article
   const openEditModalHandler = (record: IPost) => {
     const { title, body, userId, id } = record;
-    editForm.setFieldValue('id', id);
-    editForm.setFieldValue('userId', userId);
-    editForm.setFieldValue('title', title);
-    editForm.setFieldValue('body', body);
+    editForm.setFieldValue("id", id);
+    editForm.setFieldValue("userId", userId);
+    editForm.setFieldValue("title", title);
+    editForm.setFieldValue("body", body);
     setEditModalVisible(true);
   };
 
   useEffect(() => {
     if (!editModalVisible) editForm.resetFields();
-  }, [editModalVisible])
+  }, [editForm, editModalVisible]);
 
   // Delete Article
   const articleDeleteHandler = async (id: IPost["id"]) => {
@@ -44,38 +44,38 @@ const ArticleManager = ({
     await res.json();
     
     setLoading(false);
-    message.success('successfully Deleted!');
+    message.success("successfully Deleted!");
   };
 
   const columns: ColumnsType<IPost> = [
     {
       title: <div className="whitespace-nowrap">ID</div>,
-      dataIndex: 'id',
-      key: 'id'
+      dataIndex: "id",
+      key: "id"
     },
     {
       title: <div className="whitespace-nowrap">User ID</div>,
-      dataIndex: 'userId',
-      key: 'userId'
+      dataIndex: "userId",
+      key: "userId"
     },
     {
       title: <div className="whitespace-nowrap">Title</div>,
-      dataIndex: 'title',
-      key: 'title'
+      dataIndex: "title",
+      key: "title"
     },
     {
       title: <div className="whitespace-nowrap">Content</div>,
-      dataIndex: 'body',
-      key: 'body'
+      dataIndex: "body",
+      key: "body"
     },
-    ability.can('U', 'article-manager') || ability.can('D', 'article-manager') ? {
+    ability.can("U", "article-manager") || ability.can("D", "article-manager") ? {
       title: <div className="whitespace-nowrap">Action</div>,
-      dataIndex: 'action',
-      key: 'action',
+      dataIndex: "action",
+      key: "action",
       render: (_, record) => (
         <Row align='middle' justify='center' wrap={false} gutter={8}>
           {
-            ability.can('U', 'article-manager') && (
+            ability.can("U", "article-manager") && (
               <Col>
                 <Button
                   type="primary"
@@ -88,7 +88,7 @@ const ArticleManager = ({
             )
           }
           {
-            ability.can('D', 'article-manager') && (
+            ability.can("D", "article-manager") && (
               <Col>
                 <Popconfirm
                   title="Delete the Article"
@@ -116,7 +116,7 @@ const ArticleManager = ({
 
   // Search
   const onFinishSearchHandler = (values: FormRule) => {
-    message.success('This search function just for demo');
+    message.success("This search function just for demo");
   };
 
   // Edit Form Submit
@@ -135,17 +135,17 @@ const ArticleManager = ({
           method: "PUT",
           body: JSON.stringify(editForm.getFieldsValue()),
           headers: {
-            'Content-type': 'application/json; charset=UTF-8'
+            "Content-type": "application/json; charset=UTF-8"
           }
         });
 
         await res.json();
 
         setLoading(false);
-        message.success('successfully Edited!');
+        message.success("successfully Edited!");
         setEditModalVisible(false);
       });
-  }
+  };
 
   return (
     <>
@@ -161,10 +161,10 @@ const ArticleManager = ({
         loading={loading}
         dataSource={posts}
         pagination={{
-          position: ['bottomCenter'],
+          position: ["bottomCenter"],
           defaultCurrent: 1,
           current: currentPage,
-          pageSizeOptions: ['10', '25', '50', '100'],
+          pageSizeOptions: ["10", "25", "50", "100"],
           pageSize,
           showSizeChanger: true,
           onShowSizeChange: (current, size) => {
@@ -191,10 +191,10 @@ const ArticleManager = ({
             <Col span={24}>
               <Form.Item name="id" className="hidden" />
               <Form.Item name="userId" className="hidden" />
-              <Form.Item name="title" label="Title" rules={[{ required: true, type: 'string' }]}>
+              <Form.Item name="title" label="Title" rules={[{ required: true, type: "string" }]}>
                 <Input placeholder='Title' />
               </Form.Item>
-              <Form.Item name="body" label="body" rules={[{ required: true, type: 'string' }]}>
+              <Form.Item name="body" label="body" rules={[{ required: true, type: "string" }]}>
                 <Input.TextArea placeholder='body' rows={8} />
               </Form.Item>
             </Col>
@@ -202,7 +202,7 @@ const ArticleManager = ({
         </Form>
       </Modal>
     </>
-  )
+  );
 };
 
 ArticleManager.getLayout = (page: ReactElement) => {
@@ -210,7 +210,7 @@ ArticleManager.getLayout = (page: ReactElement) => {
     <DashboardLayout>
       {page}
     </DashboardLayout>
-  )
+  );
 };
 
 interface IPost {

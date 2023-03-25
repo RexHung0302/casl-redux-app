@@ -20,7 +20,7 @@ const SiderComponent = ({
       <div style={{
         height: 32,
         margin: 16,
-        background: 'rgba(255, 255, 255, 0.3)'
+        background: "rgba(255, 255, 255, 0.3)"
       }} />
       <Menu
         theme="dark"

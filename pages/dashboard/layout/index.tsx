@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Layout, theme } from "antd";
-import Sider from '@/pages/dashboard/layout/Sider';
-import Header from '@/pages/dashboard/layout/Header';
+import Sider from "@/pages/dashboard/layout/Sider";
+import Header from "@/pages/dashboard/layout/Header";
 import { Content } from "antd/lib/layout/layout";
 
 interface IDashboardLayoutProps {
@@ -34,8 +34,8 @@ const DashboardLayout = ({
             minHeight: 280,
             background: colorBgContainer,
             height: 100,
-            overflowX: 'hidden',
-            overflowY: 'scroll'
+            overflowX: "hidden",
+            overflowY: "scroll"
           }}
         >
           {children}

@@ -30,6 +30,7 @@ const App = ({ Component, ...rest }: AppPropsWithLayout) => {
     } else {
       router.push("/");
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -41,6 +42,6 @@ const App = ({ Component, ...rest }: AppPropsWithLayout) => {
       </RootLayout>
     </Provider>
   );
-}
+};
 
 export default App;

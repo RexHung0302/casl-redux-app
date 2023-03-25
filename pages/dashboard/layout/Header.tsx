@@ -18,17 +18,17 @@ const HeaderComponent = ({
   colorBgContainer
 }: IHeaderComponentProps) => {
   const dispatch = useDispatch();
-  const dropdownItems = useCallback((): MenuProps['items'] => [
+  const dropdownItems = useCallback((): MenuProps["items"] => [
     {
-      label: 'Logout',
-      key: '0',
+      label: "Logout",
+      key: "0",
       onClick: () => {
-        localStorage.removeItem('jwtToken');
+        localStorage.removeItem("jwtToken");
         dispatch(setClearAbility());
-        router.push('/login');
+        router.push("/login");
       }
     },
-  ], []);
+  ], [dispatch]);
 
   return (
     <Header style={{ padding: 0, background: colorBgContainer }}>
@@ -44,13 +44,13 @@ const HeaderComponent = ({
           </span>
         </Col>
         <Col className="pr-4">
-          <Dropdown menu={{ items: dropdownItems() }} trigger={['click']} className="cursor-pointer">
+          <Dropdown menu={{ items: dropdownItems() }} trigger={["click"]} className="cursor-pointer">
             <Avatar icon={<UserOutlined />} />
           </Dropdown>
         </Col>
       </Row>
     </Header>
-  )
-}
+  );
+};
 
 export default HeaderComponent;

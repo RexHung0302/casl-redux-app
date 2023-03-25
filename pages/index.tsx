@@ -18,41 +18,41 @@ const Home = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const [loading, setLoading] = useState(true);
-
-  const loginTestHandler = async ({jwtToken, account}: ILoginTestFuncProps) => {
-    setLoading(false);
-
-    const res = await fetch("/api/login/testJwt", {
-      method: "POST",
-      body: JSON.stringify({
-        jwtToken,
-        account
-      })
-    });
-    const { success, message: resMsg, data } = await res.json();
-    
-    if (success) {
-      const { account: resAccount, permission } = data;
-      dispatch(setAbility(permission));
-      setLoading(false);
-      dispatch(setAuthState(true));
-      message.success(`${resAccount}, Welcome Back!`);
-    } else {
-      message.error(resMsg);
-      router.push("/login");
-    }
-  };
-  
   
   useEffect(() => {
     const jwtToken = localStorage.getItem("jwtToken");
     const account = localStorage.getItem("account");
+
+    const loginTestHandler = async ({jwtToken, account}: ILoginTestFuncProps) => {
+      setLoading(false);
+  
+      const res = await fetch("/api/login/testJwt", {
+        method: "POST",
+        body: JSON.stringify({
+          jwtToken,
+          account
+        })
+      });
+      const { success, message: resMsg, data } = await res.json();
+      
+      if (success) {
+        const { account: resAccount, permission } = data;
+        dispatch(setAbility(permission));
+        setLoading(false);
+        dispatch(setAuthState(true));
+        message.success(`${resAccount}, Welcome Back!`);
+      } else {
+        message.error(resMsg);
+        router.push("/login");
+      }
+    };
+    
     if (!jwtToken || !account) {
       router.push("/login");
     } else {
       loginTestHandler({jwtToken, account});
     };
-  }, [router]);
+  }, [dispatch, router]);
 
   return (
     <>
@@ -73,7 +73,7 @@ Home.getLayout = (page: ReactElement) => {
     <DashboardLayout>
       {page}
     </DashboardLayout>
-  )
-} 
+  );
+}; 
 
 export default Home;
