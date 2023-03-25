@@ -1,7 +1,6 @@
 import { setAbility } from "@/store/reducers/authSlice";
 import { Row, Col, Card, Button, Form, Input, Alert, FormRule, message } from "antd";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 
 const Login = () => {
@@ -18,16 +17,13 @@ const Login = () => {
     if (!success) {
       message.error(resMsg);
     } else {
-      const { jwt, permission } = data;
+      const { jwt, account, permission } = data;
       localStorage.setItem("jwtToken", jwt);
+      localStorage.setItem("account", account);
       dispatch(setAbility(permission));
       router.push("/dashboard");
     }
   };
-
-  useEffect(() => {
-    const jwtToken = localStorage.getItem("jwtToken");
-  }, []);
 
   return (
     <>

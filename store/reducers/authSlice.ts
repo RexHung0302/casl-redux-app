@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { AppState } from "@/store";
 import { HYDRATE } from "next-redux-wrapper";
-import { AbilityBuilder, AnyMongoAbility, defineAbility } from '@casl/ability'
+import { AnyMongoAbility, defineAbility } from '@casl/ability';
+import { useAbility } from '@casl/react';
 
 // Type for our state
 export interface AuthState {
@@ -13,10 +14,35 @@ export interface AuthState {
 const initialState: AuthState = {
   authState: false,
   ability: defineAbility((can) => {
-    // // 基本權限
-    can(['C', 'R', 'U', 'D'], 'Home');
-  })
+    // 基本權限
+    // can(['C', 'R', 'U', 'D'], 'Home');
+  }),
 };
+
+interface IUser {
+  id: number;
+  account: string;
+}
+
+interface IPermission {
+  action: Array<'C' | 'R' | 'U' | 'D'>;
+  subject: string;
+  fields?: Array<string>;
+  conditions?: {}
+}
+
+interface IDefineAbilitiesFor {
+  user: IUser;
+  permissions: IPermission[];
+}
+
+const defineAbilitiesFor = ({user, permissions}: IDefineAbilitiesFor) => {
+  return defineAbility((can) => {
+    permissions.map((permission) => {
+      can(permission.action, permission.subject, permission.fields || undefined, permission.conditions && user);
+    })
+  })
+}
 
 // Actual Slice
 export const authSlice = createSlice({
@@ -27,11 +53,17 @@ export const authSlice = createSlice({
       state.authState = action.payload;
     },
     setAbility(state, action) {
-      const newAbility = state.ability;
-      newAbility.update([
-        ...action.payload,
-        ...state.ability.rules
-      ]);
+      const permission = action.payload;
+
+      // pass userInfo and get New Ability
+      const newAbility = defineAbilitiesFor({
+        user: {
+          id: 2,
+          account: 'admin',
+        },
+        permissions: permission
+      });
+
       state.ability = newAbility;
     },
     setClearAbility(state) {

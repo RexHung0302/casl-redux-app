@@ -1,6 +1,9 @@
+import { selectAbility, selectAuthState } from "@/store/reducers/authSlice";
 import { HomeOutlined, KeyOutlined, UnorderedListOutlined } from "@ant-design/icons";
 import { MenuProps } from "antd";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
 
 type MenuItem = Required<MenuProps>['items'][number];
 
@@ -19,7 +22,7 @@ interface IMenu {
 export const menus: IMenu[] = [
   {
     path: '/dashboard',
-    key: 'Home',
+    key: 'home',
     breadcrumb: 'Home',
     meta: { 
       icon: <HomeOutlined />,
@@ -67,19 +70,24 @@ function getItem(
 }
 
 export const menuItems = (propMenus: IMenu[] = menus): MenuItem[] => {
+  const ability = useSelector(selectAbility);
+  const authState = useSelector(selectAuthState); // Must keep this line for rerender.
   const router = useRouter();
-  return propMenus.map((menu: IMenu) => {
-    return getItem(
-      <a
-        onClick={() => router.push(menu.path)}
-        aria-hidden="true"
-        key={menu.key}
-      >{menu.meta.title}</a>,
-      menu.key,
-      menu.meta.icon,
-      menu.children ? menuItems(menu.children) : undefined,
-      undefined,
-      menu.path
-    )
-  })
+  
+  return propMenus
+    .filter((menu: IMenu) => ability.can('R', menu.key))
+    .map((menu: IMenu) => {
+      return getItem(
+        <a
+          onClick={() => router.push(menu.path)}
+          aria-hidden="true"
+          key={menu.key}
+        >{menu.meta.title}</a>,
+        menu.key,
+        menu.meta.icon,
+        menu.children ? menuItems(menu.children) : undefined,
+        undefined,
+        menu.path
+      )
+    })
 } 

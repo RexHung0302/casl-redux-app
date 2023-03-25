@@ -1,7 +1,11 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
 
-const adminPermission = [
+export const adminPermission = [
+  {
+    action: ["C", "R", "U", "D"],
+    subject: "home"
+  },
   {
     action: ["C", "R", "U", "D"],
     subject: "article-manager"
@@ -12,10 +16,23 @@ const adminPermission = [
   },
 ];
 
-const memberPermission = [
+export const memberPermission = [
+  {
+    action: ["C", "R"],
+    subject: "home"
+  },
   {
     action: ["C", "R", "U"],
     subject: "article-manager"
+  },
+  {
+    action: ["R"],
+    subject: "admin-manager"
+  },
+  {
+    action: ["U"],
+    subject: "test-update",
+    conditions: { authorId: 1 }
   }
 ];
 
@@ -47,6 +64,7 @@ export default function handler(
       success: true,
       data: {
         jwt: "fakeJwtToken",
+        account: username,
         permission: username === "admin" ? adminPermission : memberPermission
       }
     });

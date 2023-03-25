@@ -13,7 +13,6 @@ interface IArticleManagerProps {
 const ArticleManager = ({
   propsPosts
 }: IArticleManagerProps) => {
-  const authState = useSelector(selectAuthState);
   const ability = useSelector(selectAbility);
   const [editForm] = Form.useForm();
   const [loading, setLoading] = useState(false);
@@ -21,8 +20,6 @@ const ArticleManager = ({
   const [pageSize, setPageSize] = useState(10);
   const [posts] = useState<IPost[]>(propsPosts);
   const [editModalVisible, setEditModalVisible] = useState(false);
-
-  console.log('authState', authState, 'ability', ability, ability.can('R', 'article'));
 
   // Edit Article
   const openEditModalHandler = (record: IPost) => {
@@ -71,43 +68,50 @@ const ArticleManager = ({
       dataIndex: 'body',
       key: 'body'
     },
-    {
+    ability.can('U', 'article-manager') || ability.can('D', 'article-manager') ? {
       title: <div className="whitespace-nowrap">Action</div>,
       dataIndex: 'action',
       key: 'action',
       render: (_, record) => (
         <Row align='middle' justify='center' wrap={false} gutter={8}>
-          <Col>
-            <Button
-              type="primary"
-              loading={loading}
-              onClick={() => openEditModalHandler(record)}
-            >
-              Edit
-            </Button>
-          </Col>
-          <Col>
-            <Popconfirm
-              title="Delete the Article"
-              description="Are you sure to delete this Article?"
-              onConfirm={() => articleDeleteHandler(record.id)}
-              okText="Yes"
-              cancelText="No"
-              disabled={loading}
-            >
-              <Button
-                danger
-                type="primary"
-                loading={loading}
-              >
-                Delete
-              </Button>
-            </Popconfirm>
-          </Col>
+          {
+            ability.can('U', 'article-manager') && (
+              <Col>
+                <Button
+                  type="primary"
+                  loading={loading}
+                  onClick={() => openEditModalHandler(record)}
+                >
+                  Edit
+                </Button>
+              </Col>
+            )
+          }
+          {
+            ability.can('D', 'article-manager') && (
+              <Col>
+                <Popconfirm
+                  title="Delete the Article"
+                  description="Are you sure to delete this Article?"
+                  onConfirm={() => articleDeleteHandler(record.id)}
+                  okText="Yes"
+                  cancelText="No"
+                  disabled={loading}
+                >
+                  <Button
+                    danger
+                    type="primary"
+                    loading={loading}
+                  >
+                    Delete
+                  </Button>
+                </Popconfirm>
+              </Col>
+            )
+          }
         </Row>
-        
       )
-    },
+    } : {},
   ];
 
   // Search
