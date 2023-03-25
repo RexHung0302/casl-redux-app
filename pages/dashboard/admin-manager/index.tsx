@@ -32,7 +32,7 @@ const AdminManager = () => {
         </Col>
         <Col span={24}>
           <span className="text-lg">
-            Read：{
+            Update：{
               ability.can("U", "admin-manager")
                 ? <CheckCircleOutlined className="text-green-500" />
                 : <CloseCircleOutlined className="text-red-500" />
@@ -41,7 +41,7 @@ const AdminManager = () => {
         </Col>
         <Col span={24}>
           <span className="text-lg">
-            Read：{
+            Delete：{
               ability.can("D", "admin-manager")
                 ? <CheckCircleOutlined className="text-green-500" />
                 : <CloseCircleOutlined className="text-red-500" />
