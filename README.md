@@ -2,6 +2,8 @@
 
 En | [中文](README-ch.md)
 
+![Banner](/banner.png)
+
 This is a demo about `CASL + Redux`. It uses Redux to store CASL permissions and displays corresponding content based on different permissions.
 
 ---

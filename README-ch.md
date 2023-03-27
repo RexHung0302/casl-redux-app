@@ -2,6 +2,8 @@
 
 [En](README.md) | 中文
 
+![Banner](/banner.png)
+
 這是一個關於 `CASL + Redux` Demo，使用 Redux 存放 CASL 權限，並且依照不同的權限給予相對應該顯示的內容。
 
 ---
