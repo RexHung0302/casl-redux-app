@@ -6,6 +6,10 @@ En | [中文](README-ch.md)
 
 This is a demo about `CASL + Redux`. It uses Redux to store CASL permissions and displays corresponding content based on different permissions.
 
+If you have a need for permission management, it is highly recommended to use [CASL](https://casl.js.org/v6/en) to build this feature on the frontend. This package can centralize the management of permissions, making it easier to maintain in the future. The package can also be used for more complex scenarios, such as allowing only the owner of an article to edit or delete it, eliminating the need for excessive if-else statements in the code.
+
+***For more information, please refer to my article, "[Next Note] - Implementing a Clean and Concise Permission Management Solution using CASL in Next/React" (https://rexhung0302.github.io/2023/03/25/20230325/).***
+
 ---
 
 ### Plugins
