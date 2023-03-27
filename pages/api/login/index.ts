@@ -32,7 +32,8 @@ export const memberPermission = [
   {
     action: ["U"],
     subject: "test-update",
-    conditions: { authorId: 1 }
+    conditions: { authorId: 1 },
+    fields: ["title", "content"]
   }
 ];
 

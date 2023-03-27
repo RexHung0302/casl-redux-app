@@ -1,8 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { AppState } from "@/store";
 import { HYDRATE } from "next-redux-wrapper";
-import { AnyMongoAbility, defineAbility } from '@casl/ability';
-import { useAbility } from '@casl/react';
+import { AnyMongoAbility, defineAbility } from "@casl/ability";
 
 // Type for our state
 export interface AuthState {
@@ -25,7 +24,7 @@ interface IUser {
 }
 
 interface IPermission {
-  action: Array<'C' | 'R' | 'U' | 'D'>;
+  action: Array<"C" | "R" | "U" | "D">;
   subject: string;
   fields?: Array<string>;
   conditions?: {}
@@ -40,9 +39,9 @@ const defineAbilitiesFor = ({user, permissions}: IDefineAbilitiesFor) => {
   return defineAbility((can) => {
     permissions.map((permission) => {
       can(permission.action, permission.subject, permission.fields || undefined, permission.conditions && user);
-    })
-  })
-}
+    });
+  });
+};
 
 // Actual Slice
 export const authSlice = createSlice({
@@ -59,7 +58,7 @@ export const authSlice = createSlice({
       const newAbility = defineAbilitiesFor({
         user: {
           id: 2,
-          account: 'admin',
+          account: "admin",
         },
         permissions: permission
       });
@@ -76,7 +75,7 @@ export const authSlice = createSlice({
         ...state,
         ...action.payload,
       };
-    })
+    });
   },
 });
 
